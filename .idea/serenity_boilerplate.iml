@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/bot_config/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bot_core/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bot_db/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/bot_events/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bot_utils/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />

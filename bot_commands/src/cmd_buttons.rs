@@ -19,18 +19,18 @@ pub async fn cmd_buttons(ctx: &Context, msg: &Message) -> CommandResult {
                 c.create_action_row(|r| {
                     r.create_button(|b| {
                         b.custom_id("clickyboi1")
-                         .label("click me first!")
-                         .disabled(false)
-                         .style(ButtonStyle::Success)
-                         .emoji(ReactionType::Unicode("🧠".to_string()))
+                            .label("click me first!")
+                            .disabled(false)
+                            .style(ButtonStyle::Success)
+                            .emoji(ReactionType::Unicode("🧠".to_string()))
                     })
-                     .create_button(|b| {
-                         b.custom_id("clickyboi2")
-                          .label("and then click me")
-                          .disabled(true)
-                          .style(ButtonStyle::Danger)
-                          .emoji(ReactionType::Unicode("🛌".to_string()))
-                     })
+                    .create_button(|b| {
+                        b.custom_id("clickyboi2")
+                            .label("and then click me")
+                            .disabled(true)
+                            .style(ButtonStyle::Danger)
+                            .emoji(ReactionType::Unicode("🛌".to_string()))
+                    })
                 })
             })
         })
@@ -52,10 +52,10 @@ pub async fn cmd_buttons(ctx: &Context, msg: &Message) -> CommandResult {
             inter
                 .create_interaction_response(ctx, |r| {
                     r.kind(InteractionResponseType::ChannelMessageWithSource)
-                     .interaction_response_data(|d| {
-                         d.content("thanks for clicking the second clickyboi")
-                          .flags(InteractionApplicationCommandCallbackDataFlags::EPHEMERAL)
-                     })
+                        .interaction_response_data(|d| {
+                            d.content("thanks for clicking the second clickyboi")
+                                .flags(InteractionApplicationCommandCallbackDataFlags::EPHEMERAL)
+                        })
                 })
                 .await?;
             m.edit(ctx, |m| {
@@ -63,46 +63,46 @@ pub async fn cmd_buttons(ctx: &Context, msg: &Message) -> CommandResult {
                     c.create_action_row(|r| {
                         r.create_button(|b| {
                             b.custom_id("clickyboi1")
-                             .label("don't click me now")
-                             .disabled(true)
-                             .style(ButtonStyle::Danger)
-                             .emoji(ReactionType::Unicode("🧠".to_string()))
+                                .label("don't click me now")
+                                .disabled(true)
+                                .style(ButtonStyle::Danger)
+                                .emoji(ReactionType::Unicode("🧠".to_string()))
                         })
-                         .create_button(|b| {
-                             b.custom_id("clickyboi2")
-                              .label("click me now")
-                              .disabled(false)
-                              .style(ButtonStyle::Success)
-                              .emoji(ReactionType::Unicode("🛌".to_string()))
-                         })
+                        .create_button(|b| {
+                            b.custom_id("clickyboi2")
+                                .label("click me now")
+                                .disabled(false)
+                                .style(ButtonStyle::Success)
+                                .emoji(ReactionType::Unicode("🛌".to_string()))
+                        })
                     })
                 })
             })
-             .await?;
+            .await?;
         }
         None => {
             m.edit(ctx, |m| {
                 m.content("the clicky bois didn't get a click in time 😭")
-                 .components(|c| {
-                     c.create_action_row(|r| {
-                         r.create_button(|b| {
-                             b.custom_id("clickyboi1")
-                              .label("no clicky")
-                              .disabled(true)
-                              .style(ButtonStyle::Danger)
-                              .emoji(ReactionType::Unicode("🧠".to_string()))
-                         })
-                          .create_button(|b| {
-                              b.custom_id("clickyboi2")
-                               .label("also no clicky")
-                               .disabled(true)
-                               .style(ButtonStyle::Danger)
-                               .emoji(ReactionType::Unicode("🛌".to_string()))
-                          })
-                     })
-                 })
+                    .components(|c| {
+                        c.create_action_row(|r| {
+                            r.create_button(|b| {
+                                b.custom_id("clickyboi1")
+                                    .label("no clicky")
+                                    .disabled(true)
+                                    .style(ButtonStyle::Danger)
+                                    .emoji(ReactionType::Unicode("🧠".to_string()))
+                            })
+                            .create_button(|b| {
+                                b.custom_id("clickyboi2")
+                                    .label("also no clicky")
+                                    .disabled(true)
+                                    .style(ButtonStyle::Danger)
+                                    .emoji(ReactionType::Unicode("🛌".to_string()))
+                            })
+                        })
+                    })
             })
-             .await?;
+            .await?;
             return Ok(());
         }
     };
@@ -120,40 +120,39 @@ pub async fn cmd_buttons(ctx: &Context, msg: &Message) -> CommandResult {
             inter
                 .create_interaction_response(ctx, |r| {
                     r.kind(InteractionResponseType::ChannelMessageWithSource)
-                     .interaction_response_data(|d| {
-                         d.content("thanks for clicking the first clickyboi")
-                          .flags(InteractionApplicationCommandCallbackDataFlags::EPHEMERAL)
-                     })
+                        .interaction_response_data(|d| {
+                            d.content("thanks for clicking the first clickyboi")
+                                .flags(InteractionApplicationCommandCallbackDataFlags::EPHEMERAL)
+                        })
                 })
                 .await?;
         }
         None => {
             m.edit(ctx, |m| {
                 m.content("the clicky bois didn't get a click in time 😭")
-                 .components(|c| {
-                     c.create_action_row(|r| {
-                         r.create_button(|b| {
-                             b.custom_id("clickyboi1")
-                              .label("no clicky")
-                              .disabled(true)
-                              .style(ButtonStyle::Danger)
-                              .emoji(ReactionType::Unicode("🧠".to_string()))
-                         })
-                          .create_button(|b| {
-                              b.custom_id("clickyboi2")
-                               .label("also no clicky")
-                               .disabled(true)
-                               .style(ButtonStyle::Danger)
-                               .emoji(ReactionType::Unicode("🛌".to_string()))
-                          })
-                     })
-                 })
+                    .components(|c| {
+                        c.create_action_row(|r| {
+                            r.create_button(|b| {
+                                b.custom_id("clickyboi1")
+                                    .label("no clicky")
+                                    .disabled(true)
+                                    .style(ButtonStyle::Danger)
+                                    .emoji(ReactionType::Unicode("🧠".to_string()))
+                            })
+                            .create_button(|b| {
+                                b.custom_id("clickyboi2")
+                                    .label("also no clicky")
+                                    .disabled(true)
+                                    .style(ButtonStyle::Danger)
+                                    .emoji(ReactionType::Unicode("🛌".to_string()))
+                            })
+                        })
+                    })
             })
-             .await?;
+            .await?;
             return Ok(());
         }
     }
 
     Ok(())
 }
-

@@ -151,6 +151,7 @@ dependencies = [
  "bot_commands",
  "bot_config",
  "bot_db",
+ "bot_events",
  "bot_utils",
  "serenity",
  "tokio",
@@ -165,6 +166,15 @@ dependencies = [
  "bot_config",
  "serenity",
  "sqlx",
+ "tracing",
+]
+
+[[package]]
+name = "bot_events"
+version = "0.1.0"
+dependencies = [
+ "serenity",
+ "tokio",
  "tracing",
 ]
 

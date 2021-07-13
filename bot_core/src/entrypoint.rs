@@ -1,6 +1,8 @@
-use bot_commands::{CMD_HELP, GENERAL_GROUP, BOTUTILS_GROUP};
+use bot_commands::{BOTUTILS_GROUP, CMD_HELP, GENERAL_GROUP};
 use bot_config::BotConfig;
 use bot_db::{dyn_prefix, PgPoolKey, DATABASE_ENABLED};
+use bot_events::{BotEventHandler, BotRawEventHandler};
+use bot_utils::ShardManagerWrapper;
 use serenity::client::bridge::gateway::GatewayIntents;
 use serenity::client::{parse_token, TokenComponents};
 use serenity::framework::standard::buckets::LimitedFor;
@@ -9,9 +11,8 @@ use serenity::http::Http;
 use serenity::Client;
 use std::boxed::Box;
 use std::collections::HashSet;
-use tracing::{info, error};
 use tracing::subscriber::set_global_default;
-use bot_utils::ShardManagerWrapper;
+use tracing::{error, info};
 
 // if you're new to Rust this function signature might look weird
 // it's just saying this function can return no error and no value
@@ -201,6 +202,8 @@ pub async fn entrypoint() -> Result<(), Box<dyn std::error::Error>> {
         .framework(framework)
         // pass in the app ID we got above (required for slash commands)
         .application_id(u64::from(app_id))
+        .event_handler(BotEventHandler::default())
+        .raw_event_handler(BotRawEventHandler::default())
         // await the client to construct it
         .await
         // check the Result returned

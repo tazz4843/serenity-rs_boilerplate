@@ -12,6 +12,7 @@ members = [
   "bot_core",
   "bot_utils",
   "bot_config",
+  "bot_events",
 ]
 
 [dependencies]
