@@ -128,7 +128,10 @@ dependencies = [
 name = "bot_commands"
 version = "0.1.0"
 dependencies = [
+ "bot_db",
+ "bot_utils",
  "serenity",
+ "sqlx",
  "tracing",
 ]
 
@@ -150,6 +153,7 @@ dependencies = [
  "bot_db",
  "bot_utils",
  "serenity",
+ "tokio",
  "tracing",
  "tracing-subscriber",
 ]
@@ -168,6 +172,8 @@ dependencies = [
 name = "bot_utils"
 version = "0.1.0"
 dependencies = [
+ "serenity",
+ "tokio",
  "tracing",
 ]
 

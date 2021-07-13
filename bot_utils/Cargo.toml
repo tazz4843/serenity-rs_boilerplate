@@ -7,3 +7,13 @@ edition = "2018"
 
 [dependencies]
 tracing = "0.1"
+
+[dependencies.tokio]
+version = "1.7"
+features = ["full"]
+
+[dependencies.serenity]
+git = "https://github.com/serenity-rs/serenity"
+branch = "current"
+features = ["client", "standard_framework", "rustls_backend", "framework", "cache", "collector", "unstable_discord_api"]
+

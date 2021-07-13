@@ -35,6 +35,9 @@ release: 1.54.0
 commit-hash: 44456677b5d1d82fe981c955dc5c67734b31f340
 commit-date: 2021-06-12
 ```
+### Using a ORM
+There isn't a async ORM for Rust. I did a lot of digging because I hated doing SQL queries, but eventually 
+I just got used to it. You should do the same. It's not that scary, despite what it looks like.
 
 ## How To Use
 

@@ -11,7 +11,7 @@ use std::time::Duration;
 
 #[command("buttons")]
 #[description = "AKA clicky bois"]
-async fn cmd_example(ctx: &Context, msg: &Message) -> CommandResult {
+pub async fn cmd_buttons(ctx: &Context, msg: &Message) -> CommandResult {
     let mut m = msg
         .channel_id
         .send_message(ctx, |m| {

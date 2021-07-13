@@ -1,4 +1,4 @@
-use bot_commands::{CMD_HELP, GENERAL_GROUP};
+use bot_commands::{CMD_HELP, GENERAL_GROUP, BOTUTILS_GROUP};
 use bot_config::BotConfig;
 use bot_db::{dyn_prefix, PgPoolKey, DATABASE_ENABLED};
 use serenity::client::bridge::gateway::GatewayIntents;
@@ -9,8 +9,9 @@ use serenity::http::Http;
 use serenity::Client;
 use std::boxed::Box;
 use std::collections::HashSet;
-use tracing::info;
+use tracing::{info, error};
 use tracing::subscriber::set_global_default;
+use bot_utils::ShardManagerWrapper;
 
 // if you're new to Rust this function signature might look weird
 // it's just saying this function can return no error and no value
@@ -156,6 +157,7 @@ pub async fn entrypoint() -> Result<(), Box<dyn std::error::Error>> {
         // this adds a group to the bot: same notes as for the help command above, but you
         // must append `_GROUP` to the struct name and turn it into all uppercase
         .group(&GENERAL_GROUP)
+        .group(&BOTUTILS_GROUP)
 
         // if you have a error handler, uncomment this line and pass the function (don't call it!)
         // .on_dispatch_error()
@@ -166,7 +168,13 @@ pub async fn entrypoint() -> Result<(), Box<dyn std::error::Error>> {
 
         // add error handlers here: if a cmd returned a error, it'll be passed as the 4th
         // argument to this function
-        // .after()
+        .after(|_, _, _, z| {
+            Box::pin(async move {
+                if let Err(e) = z {
+                    error!("command failed: {}", e)
+                }
+            })
+        })
 
         // want to do something on a normal message? you can also use `EventHandler::on_message`
         // and you should use that instead actually
@@ -207,7 +215,18 @@ pub async fn entrypoint() -> Result<(), Box<dyn std::error::Error>> {
         if let Some(db) = db {
             map.insert::<PgPoolKey>(db)
         }
+
+        map.insert::<ShardManagerWrapper>(client.shard_manager.clone());
     }
+
+    // make a ctrl+c handler to cleanly shut down the bot
+    let shard_manager = client.shard_manager.clone();
+    tokio::spawn(async move {
+        // tokio provides this utility to wait for a ctrl+c
+        tokio::signal::ctrl_c().await.unwrap();
+        // we lock the shard manager and tell it to shut down all shards
+        shard_manager.lock().await.shutdown_all().await;
+    });
 
     // start the client
     client.start_autosharded().await?;
