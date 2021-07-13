@@ -34,8 +34,8 @@ use std::time::Instant;
 // the pool is internally behind a Arc so is safe to clone
 
 pub struct BotEventHandler {
-    start_time: Instant,
-    loop_running: AtomicBool,
+    pub start_time: Instant,
+    pub loop_running: AtomicBool,
 }
 
 impl Default for BotEventHandler {

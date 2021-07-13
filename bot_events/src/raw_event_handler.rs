@@ -1,7 +1,7 @@
+use crate::raw_event_handlers::*;
 use serenity::async_trait;
 use serenity::model::prelude::Event;
 use serenity::prelude::{Context, RawEventHandler};
-use crate::raw_event_handlers::*;
 
 // go read the notes in event_handler.rs before fiddling around in here
 

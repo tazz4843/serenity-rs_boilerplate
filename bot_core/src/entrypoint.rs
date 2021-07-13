@@ -202,6 +202,7 @@ pub async fn entrypoint() -> Result<(), Box<dyn std::error::Error>> {
         .framework(framework)
         // pass in the app ID we got above (required for slash commands)
         .application_id(u64::from(app_id))
+        // add event handlers
         .event_handler(BotEventHandler::default())
         .raw_event_handler(BotRawEventHandler::default())
         // await the client to construct it
