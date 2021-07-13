@@ -1,6 +1,7 @@
-use crate::intents::INTENTS;
+use bot_commands::{CMD_HELP, GENERAL_GROUP};
 use bot_config::BotConfig;
-use bot_db::{DATABASE_ENABLED, PgPoolKey, dyn_prefix};
+use bot_db::{dyn_prefix, PgPoolKey, DATABASE_ENABLED};
+use serenity::client::bridge::gateway::GatewayIntents;
 use serenity::client::{parse_token, TokenComponents};
 use serenity::framework::standard::buckets::LimitedFor;
 use serenity::framework::StandardFramework;
@@ -8,7 +9,8 @@ use serenity::http::Http;
 use serenity::Client;
 use std::boxed::Box;
 use std::collections::HashSet;
-use tracing::{info};
+use tracing::info;
+use tracing::subscriber::set_global_default;
 
 // if you're new to Rust this function signature might look weird
 // it's just saying this function can return no error and no value
@@ -16,6 +18,10 @@ use tracing::{info};
 // containing a struct that implements std::error::Error.
 // this lets you use ? anywhere to return errors to the main function
 pub async fn entrypoint() -> Result<(), Box<dyn std::error::Error>> {
+    // set global default logger for the logs we have
+    let sub = tracing_subscriber::fmt().with_level(true).finish();
+    set_global_default(sub).expect("failed to set global default logger");
+
     // let's begin by changing directory to the bot executable file
     bot_utils::set_dir();
 
@@ -52,13 +58,14 @@ pub async fn entrypoint() -> Result<(), Box<dyn std::error::Error>> {
         // check if the bot is on a team
         match info.team {
             Some(t) => {
-                // if it is, iterate over the team members and insert them into the hashmap
-                t.members.iter().map(|x| owners.insert(x.user.id));
-            },
+                // if it is, overwrite the hashset with a new one
+                // the compiler's smart enough to determine what type we want to collect into
+                owners = t.members.iter().map(|m| m.user.id).collect();
+            }
             None => {
                 // and if it isn't, just add the owner ID
                 owners.insert(info.owner.id);
-            },
+            }
         };
 
         (owners, info.id)
@@ -175,19 +182,19 @@ pub async fn entrypoint() -> Result<(), Box<dyn std::error::Error>> {
     info!("initializing serenity client...");
     // construct a client with the token
     let mut client = Client::builder(BotConfig::get().token())
-
-        // modify intents in bot_core/src/intents.rs
-        .intents(INTENTS)
-
+        .intents(
+            GatewayIntents::DIRECT_MESSAGES
+                | GatewayIntents::GUILD_MESSAGES
+                | GatewayIntents::DIRECT_MESSAGE_REACTIONS
+                | GatewayIntents::GUILD_MESSAGE_REACTIONS
+                | GatewayIntents::GUILDS,
+        )
         // pass in the framework we made above
         .framework(framework)
-
         // pass in the app ID we got above (required for slash commands)
         .application_id(u64::from(app_id))
-
         // await the client to construct it
         .await
-
         // check the Result returned
         .expect("failed to create the client");
 

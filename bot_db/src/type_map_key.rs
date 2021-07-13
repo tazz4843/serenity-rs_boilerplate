@@ -1,5 +1,5 @@
 use serenity::prelude::TypeMapKey;
-use sqlx::{Postgres, Pool};
+use sqlx::{Pool, Postgres};
 
 pub struct PgPoolKey;
 impl TypeMapKey for PgPoolKey {

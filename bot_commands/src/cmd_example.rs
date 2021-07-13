@@ -15,6 +15,13 @@ use serenity::{
 async fn cmd_example(ctx: &Context, msg: &Message) -> CommandResult {
     let mut embed = CreateEmbed::default();
     embed.title("Template Command");
-    msg.channel_id.send_message(&ctx, |m| m.embed(|e| { *e = embed; e })).await?;
+    msg.channel_id
+        .send_message(&ctx, |m| {
+            m.embed(|e| {
+                *e = embed;
+                e
+            })
+        })
+        .await?;
     Ok(())
 }
