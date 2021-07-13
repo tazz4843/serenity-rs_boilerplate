@@ -1,0 +1,22 @@
+[package]
+name = "serenity_boilerplate"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[workspace]
+members = [
+  "bot_commands",
+  "bot_db",
+  "bot_core",
+  "bot_utils",
+  "bot_config",
+]
+
+[dependencies]
+bot_core = { path = "bot_core" }
+
+[dependencies.tokio]
+version = "1.7"
+features = ["full"]
