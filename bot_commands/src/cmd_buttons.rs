@@ -1,0 +1,3 @@
+// so...
+// you're here because you want to know how to do buttons eh?
+// they're not done yet, just let me finish off the code

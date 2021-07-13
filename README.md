@@ -56,10 +56,6 @@ Note that doing so will result in:
 
 This is useful for bots with no state or need to save things, but for most bots you should leave it on.
 
-**Disabling the database will not affect runtime speed!** As the variable is a `const`, it is replaced 
-at compile time, which results in the compiler simply removing the code that won't be executed.
-Do note, however, that `sqlx` is still used as a dependency.
-
 ### Slash Commands
 Discord's ~~most broken~~ nicest new feature.
 Support for them will be added soon.
