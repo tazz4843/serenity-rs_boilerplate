@@ -19,5 +19,5 @@ members = [
 bot_core = { path = "bot_core" }
 
 [dependencies.tokio]
-version = "1.7"
+version = "1.8"
 features = ["full"]
