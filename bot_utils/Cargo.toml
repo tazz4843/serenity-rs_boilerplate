@@ -9,7 +9,7 @@ edition = "2018"
 tracing = "0.1"
 
 [dependencies.tokio]
-version = "1.7"
+version = "1.8"
 features = ["full"]
 
 [dependencies.serenity]
