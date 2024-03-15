@@ -1,3 +1,6 @@
+# WARNING
+This has not been updated in years. Do not use it. You should now instead view the official serenity examples and use poise instead.
+
 # `serenity-rs` Boilerplate
 
 This is a nice little bot template you are free to use in your bots for whatever reason.
